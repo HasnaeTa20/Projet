@@ -47,6 +47,49 @@ class _AlimentationState extends State<Alimentation> {
               height: 150,
               width: 150,
               fit: BoxFit.cover,),),
+              actions:[
+                 Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(70, 0, 10, 50),
+                  child: TextButton(
+                    onPressed: () {},
+                   style: ButtonStyle(
+                                foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                                
+                                (Set<MaterialState> states) {
+                  
+                                if (states.contains(MaterialState.pressed)) {
+                                  return const Color.fromARGB(255, 80, 139, 188);
+                                }
+                                return  Color.fromARGB(255, 30, 80, 121); // null throus error in flutter 2.2+.
+                                   }),
+                                   ),
+                    child: const Text(
+                      'Connexion',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 30, 80, 121), 
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Andalus',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                // const SizedBox(
+                //   width: 10,
+                // ),
+               
+                // const SizedBox(
+                //   width: 10,
+                // ),
+                // const CircleAvatar(
+                //   radius: 25,
+                //  child: Image(image:AssetImage('user.png')),
+                // )
+              ],
+            ),
+              ],
 
                 //lien de navigation Home_Corpus_Alimentation
               title: Row(
