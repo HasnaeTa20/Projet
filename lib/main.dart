@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:projet_pfe/moderateur/Alimentation.dart';
 
 import 'package:projet_pfe/user/Connexion.dart';
+import 'package:projet_pfe/user/cone.dart';
+import 'package:projet_pfe/user/userpreferences.dart';
+import 'package:projet_pfe/widget/listingcorpus.dart';
 
 
 
@@ -23,10 +25,22 @@ class MyApp extends StatelessWidget {
       title: 'ircamCorpus',
       debugShowCheckedModeBanner: false,
       home:
+      
       FutureBuilder(
-        builder: (context, dataSnapshot){
-         return
-          const Alimentation();
+        future: RememeberUserPrefs.readUserInfo(),
+        builder: (context, dataSnapshot)
+        {
+          if(dataSnapshot.data==null)
+          {
+            return
+           const Connexion();
+            
+          }
+          else
+          {
+                return const Corpus();
+          }
+          
           },
        ) 
     );

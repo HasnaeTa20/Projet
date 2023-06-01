@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:projet_pfe/user/Connexion.dart';
 import 'package:projet_pfe/widget/updatealimentation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/usercontroller.dart';
 
 class Alimentation extends StatefulWidget {
@@ -16,7 +19,7 @@ class _AlimentationState extends State<Alimentation> {
     final contr = Get.put(UserController());
     bool val=false;
     int val1= -1;
-   
+    // String username = "";
     var valueChoose;
     List listItem = [
     
@@ -31,6 +34,31 @@ class _AlimentationState extends State<Alimentation> {
     'Variante',
        
    ];
+
+   
+  
+ 
+  // Future logOut(BuildContext context)async{
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   preferences.remove('username');
+  //   Fluttertoast.showToast(
+  //       msg: "Logout Successful",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       gravity: ToastGravity.BOTTOM,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.amber,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0
+  //   );
+  //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const Connexion(),),);
+  // }
+
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getEmail();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +76,17 @@ class _AlimentationState extends State<Alimentation> {
               width: 150,
               fit: BoxFit.cover,),),
               actions:[
+
                  Row(
               children: [
+                // Center(child: username == '' ? Text('') : Text(username)),
+               SizedBox(width: 20,),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(70, 0, 10, 50),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // logOut(context);
+                      },
                    style: ButtonStyle(
                                 foregroundColor: MaterialStateProperty.resolveWith<Color>(
                                 
@@ -83,10 +116,10 @@ class _AlimentationState extends State<Alimentation> {
                 const SizedBox(
                   width: 10,
                 ),
-                const CircleAvatar(
-                  radius: 25,
-                 child: Image(image:AssetImage('user.png')),
-                )
+                // const CircleAvatar(
+                //   radius: 25,
+                //  child: Image(image:AssetImage('user.png')),
+                // )
               ],
             ),
               ],

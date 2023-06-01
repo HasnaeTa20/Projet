@@ -5,11 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:projet_pfe/admin/Admin.dart';
 import 'package:projet_pfe/api/connection.dart';
+import 'package:projet_pfe/moderateur/Alimentation.dart';
+import 'package:projet_pfe/user/cone.dart';
 import 'package:projet_pfe/user/recovermotdepass.dart';
+import 'package:projet_pfe/user/user.dart';
+import 'package:projet_pfe/user/userpreferences.dart';
 import 'package:projet_pfe/widget/listingcorpus.dart';
 import './Inscription.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -43,13 +49,47 @@ class _ConnexionState extends State<Connexion> {
          if(res.statusCode==200){ //from flutter app the connection with api to server_success
           var reslogin = jsonDecode(res.body);
           if(reslogin["success"]==true){
-            Fluttertoast.showToast(msg: "connexions avec succès.");
-          
-           Future.delayed(const Duration(milliseconds: 20),(){
 
-             Get.to(() => const Corpus());});}
+          //   SharedPreferences preferences = await SharedPreferences.getInstance();
+          // preferences.setString('username', username.text);
+          
+
+            Fluttertoast.showToast(msg: "connexions avec succès.",
+             toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
+      User userInfo =User.fromJson(reslogin["userData"]);
+      //save userInfo to local Storage using Shared Preferences
+          await RememeberUserPrefs.saveUserData(userInfo);
+           
+           
+           
+            Future.delayed(const Duration(milliseconds: 20),(){
+
+              Get.to(() => const Corpus());
+              // Navigator.push(
+              //     context as BuildContext,
+              //     MaterialPageRoute(
+              //       builder: (context) => Corpus(),
+              //     ),
+              //   )
+             
+             
+             });
+             
+             }
            else{
-            Fluttertoast.showToast(msg: "Le nom d’utilisateur ou le mot de passe est incorrect. Réessayez.");
+            Fluttertoast.showToast(
+              msg: "Le nom d’utilisateur ou le mot de passe est incorrect. Réessayez.",
+               toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
           }
         }
       }

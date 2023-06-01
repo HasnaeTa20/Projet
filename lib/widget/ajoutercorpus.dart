@@ -8,8 +8,10 @@ import 'package:projet_pfe/api/connection.dart';
 import 'package:projet_pfe/moderateur/Alimentation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
+import 'package:projet_pfe/user/cone.dart';
 import 'package:projet_pfe/widget/Formulaire.dart';
 import 'package:projet_pfe/widget/NavBar.dart';
+import 'package:projet_pfe/widget/listingcorpus.dart';
 
 class AjoutCorpus extends StatefulWidget {
   const AjoutCorpus({super.key});
@@ -108,7 +110,9 @@ class _AjoutCorpusState extends State<AjoutCorpus> {
                     padding: const EdgeInsets.fromLTRB(150, 200,150,100),
                     child: 
                     TextButton(
-                     onPressed: () {  },
+                     onPressed: () {   setState(() {
+                    Get.to(() => const Corpus());
+                          });  },
                      style: ButtonStyle(
                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
