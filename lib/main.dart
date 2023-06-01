@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:projet_pfe/moderateur/Alimentation.dart';
 
 import 'package:projet_pfe/user/Connexion.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       FutureBuilder(
         builder: (context, dataSnapshot){
          return
-          const Connexion();
+          const Alimentation();
           },
        ) 
     );
