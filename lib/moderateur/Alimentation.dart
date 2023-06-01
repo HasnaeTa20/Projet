@@ -66,7 +66,7 @@ class _AlimentationState extends State<Alimentation> {
                                    }),
                                    ),
                     child: const Text(
-                      'Connexion',
+                      'Deconnexion',
                       style: TextStyle(
                         color: Color.fromARGB(255, 30, 80, 121), 
                         fontWeight: FontWeight.w700,
@@ -76,17 +76,17 @@ class _AlimentationState extends State<Alimentation> {
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   width: 10,
-                // ),
+                const SizedBox(
+                  width: 10,
+                ),
                
-                // const SizedBox(
-                //   width: 10,
-                // ),
-                // const CircleAvatar(
-                //   radius: 25,
-                //  child: Image(image:AssetImage('user.png')),
-                // )
+                const SizedBox(
+                  width: 10,
+                ),
+                const CircleAvatar(
+                  radius: 25,
+                 child: Image(image:AssetImage('user.png')),
+                )
               ],
             ),
               ],
