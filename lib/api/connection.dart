@@ -10,6 +10,10 @@ static const validateEmail = "$hostConnectionuser/validateemail.php";
 static const signUp = "$hostConnectionuser/signup.php ";
 static const login = "$hostConnectionuser/connectionuser.php ";
 static const ckeck = "$hostConnectionuser/check.php";
+static const getall = "$hostConnectionuser/getall.php";
+static const updateuser = "$hostConnectionuser/update.php";
+static const deleteuser = "$hostConnectionuser/delete.php";
+
 
 
 //insert/udate/detele/getall -->Alimentation

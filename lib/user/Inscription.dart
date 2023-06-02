@@ -26,7 +26,7 @@ class _InscriptionState extends State<Inscription> {
   var password=TextEditingController(); 
   var isObscure=true.obs;
   // ignore: prefer_typing_uninitialized_variables
-  var role;
+  var role = "Utilisateur Interne";
 
   
    validateemailuser() async{
@@ -67,7 +67,7 @@ class _InscriptionState extends State<Inscription> {
         username.text.trim(),
         email.text.trim(),
         password.text.trim(), 
-        role.toString().trim(),
+        role.trim(),
       );
       try{
         var res= await http.post(
@@ -167,7 +167,7 @@ class _InscriptionState extends State<Inscription> {
             alignment: const Alignment(-0.012, 0.431),
             child: SizedBox(
               width: 400.0,
-              height: 500.0,
+              height: 550.0,
               child: Stack(
                 children: <Widget>[
                   Stack(
@@ -187,11 +187,11 @@ class _InscriptionState extends State<Inscription> {
                       ),
                          
                       
-                      const SizedBox(height: 15,),
+                      const SizedBox(height: 20,),
                         
                   
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(60,50, 60, 8),
+                        padding: const EdgeInsets.fromLTRB(60,50, 40, 5),
                         child: Column(children: [
                           Form(
                             key: formKey,
@@ -237,7 +237,7 @@ class _InscriptionState extends State<Inscription> {
                               
                               ), 
                             ),
-                             const SizedBox(height: 30,),
+                             const SizedBox(height: 20,),
 
                              //prenom
                                 TextFormField(
@@ -278,7 +278,7 @@ class _InscriptionState extends State<Inscription> {
                               
                               ), 
                             ),
-                             const SizedBox(height: 30,),
+                             const SizedBox(height: 20,),
 
                              //username
                               TextFormField(
@@ -320,7 +320,7 @@ class _InscriptionState extends State<Inscription> {
                               ), 
                             ),
                             
-                             const SizedBox(height: 30,),
+                             const SizedBox(height: 20,),
 
                              //Email
                               TextFormField(
@@ -362,7 +362,7 @@ class _InscriptionState extends State<Inscription> {
                               ), 
                             ),
 
-                             const SizedBox(height: 30,),
+                             const SizedBox(height: 20,),
 
                              //password
                              Obx(
@@ -420,7 +420,7 @@ class _InscriptionState extends State<Inscription> {
                             )
                           ),
                           
-                          const SizedBox(height: 15,),
+                          const SizedBox(height: 10,),
 
                              // button
                            Material(

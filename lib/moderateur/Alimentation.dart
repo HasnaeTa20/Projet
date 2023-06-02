@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:projet_pfe/moderateur/updatealimentation.dart';
 import 'package:projet_pfe/user/Connexion.dart';
-import 'package:projet_pfe/widget/updatealimentation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:projet_pfe/user/currentuser.dart';
+import 'package:projet_pfe/user/userpreferences.dart';
+
 import '../controller/usercontroller.dart';
 
 class Alimentation extends StatefulWidget {
@@ -15,11 +16,13 @@ class Alimentation extends StatefulWidget {
 }
 
 class _AlimentationState extends State<Alimentation> {
+  final CurrentUser currentUser = Get.put(CurrentUser());
+  CurrentUser remmebereCurrentUser = Get.put(CurrentUser());
     var formKey=GlobalKey<FormState>();
     final contr = Get.put(UserController());
     bool val=false;
     int val1= -1;
-    // String username = "";
+   
     var valueChoose;
     List listItem = [
     
@@ -35,31 +38,85 @@ class _AlimentationState extends State<Alimentation> {
        
    ];
 
-   
   
- 
-  // Future logOut(BuildContext context)async{
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   preferences.remove('username');
-  //   Fluttertoast.showToast(
-  //       msg: "Logout Successful",
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.BOTTOM,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.amber,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0
-  //   );
-  //   Navigator.push(context, MaterialPageRoute(builder: (context)=>const Connexion(),),);
-  // }
+  SignOutUser()async{
+   var res= await Get.dialog(
+      AlertDialog(
+        backgroundColor: Color.fromARGB(255, 199, 219, 232),
+      title:  Text("Deconnexion",
+      style: TextStyle(
+        fontSize: 20,
+        fontFamily: 'Andalus',
+      fontWeight: FontWeight.bold),),
+      content: Text(
+        "Êtes-vous sûr? \n de vouloir vous déconnecter? ",
+        style: TextStyle(fontFamily: 'Andalus',
+        fontSize: 16,),
+      ),
+      actions: [
+        TextButton(
+          onPressed:()
+          {
+            Get.back();
+          },
+        child:Text( "Non",
+        style: TextStyle(
+          color: Color.fromARGB(255, 3, 54, 106),
+          fontFamily: 'Andalus',
+          fontSize: 16,
 
+        ),)
+        ),
+        TextButton(
+          onPressed:()
+          {
+            Get.back(result: "Deconnexion");
+          },
+        child:Text( "Oui",
+        style: TextStyle(
+          color: Color.fromARGB(255, 3, 54, 106),
+          fontFamily: 'Andalus',
+          fontSize: 16,
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getEmail();
-  // }
+        ),)
+        ),
+      ],
 
+      ));
+      if(res=="Deconnexion"){
+        //delete-remove the user data from local storage
+        RememeberUserPrefs.removeUserInfo().then((value) 
+        {
+          Get.off(const Connexion());
+        });
+
+      }
+  }
+  Widget userInfo(IconData iconData,String userData){
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+       
+      ),
+      padding:const EdgeInsets.symmetric(horizontal: 16,vertical:8,),
+      child:  Row(children: [
+        Icon(iconData,
+        size: 20,
+        color:Color.fromARGB(255, 20, 60, 92),),
+        SizedBox(width: 10,),
+
+        Text(userData,
+      style: TextStyle(
+                        color: Color.fromARGB(255, 30, 80, 121), 
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Andalus',
+                        fontSize: 16,
+                      ),
+        ),
+      ],),
+    );
+
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -79,26 +136,32 @@ class _AlimentationState extends State<Alimentation> {
 
                  Row(
               children: [
-                // Center(child: username == '' ? Text('') : Text(username)),
+                 
                SizedBox(width: 20,),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(70, 0, 10, 50),
-                  child: TextButton(
-                    onPressed: () {
-                      // logOut(context);
+                  padding: const EdgeInsets.fromLTRB(70, 0, 7, 50),
+                  child: userInfo(Icons.person,currentUser.user.username),
+                 
+                ),
+                const SizedBox(
+                  width: 2,
+                ),
+                 Padding(
+                   padding: const EdgeInsets.fromLTRB(30, 0, 5, 50),
+                   child: Material(
+                    color:  Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(8),
+                    child: InkWell(
+                      onTap: ()
+                      {
+                        SignOutUser();
                       },
-                   style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                                
-                                (Set<MaterialState> states) {
-                  
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const Color.fromARGB(255, 80, 139, 188);
-                                }
-                                return  Color.fromARGB(255, 30, 80, 121); // null throus error in flutter 2.2+.
-                                   }),
-                                   ),
-                    child: const Text(
+                      borderRadius: BorderRadius.circular(10),
+                      child: const Padding(
+                        padding:
+                       EdgeInsets.symmetric(horizontal: 30,
+                      vertical: 12),
+                      child:  Text(
                       'Deconnexion',
                       style: TextStyle(
                         color: Color.fromARGB(255, 30, 80, 121), 
@@ -107,19 +170,16 @@ class _AlimentationState extends State<Alimentation> {
                         fontSize: 16,
                       ),
                     ),
+                      ),
+                    )
+                  
+                    
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-               
-                const SizedBox(
-                  width: 10,
-                ),
-                // const CircleAvatar(
-                //   radius: 25,
-                //  child: Image(image:AssetImage('user.png')),
-                // )
+                  
+                   
+                 ),
+ 
+                
               ],
             ),
               ],
@@ -316,7 +376,7 @@ class _AlimentationState extends State<Alimentation> {
                                      onPressed: () async{  
                                      showDialog(
                                       context: context, 
-                                      builder: (context)=>Dialog(child:UpdateUseer(user: user,) ,));
+                                      builder: (context)=>Dialog(child:UpdateAlim(user: user,) ,));
                                       contr.editnomtext.text=user.nom!;
                                       contr.editprenomtext.text=user.prenom!;
                                       contr.update(); },),),),
